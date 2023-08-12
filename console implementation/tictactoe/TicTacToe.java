@@ -110,8 +110,7 @@ public class TicTacToe {
      * 
      * @param board
      * @return the winning mark's enum declaration if a winner is found;
-     *         {@code null}
-     *         otherwise
+     *         {@code null} otherwise
      */
     public static String checkRowsForWinner(Board board) {
         String winningMark = null, currentMark;
@@ -142,8 +141,7 @@ public class TicTacToe {
      * 
      * @param board
      * @return the winning mark's enum declaration if a winner is found;
-     *         {@code null}
-     *         otherwise
+     *         {@code null} otherwise
      */
     public static String checkColumnsForWinner(Board board) {
         String winningMark = null, currentMark;
@@ -174,8 +172,7 @@ public class TicTacToe {
      * 
      * @param board
      * @return the winning mark's enum declaration if a winner is found;
-     *         {@code null}
-     *         otherwise
+     *         {@code null} otherwise
      */
     public static String checkDiagonalsForWinner(Board board) {
         String winningMark = board.markAt(0, 0);

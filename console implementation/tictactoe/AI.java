@@ -41,7 +41,7 @@ public class AI extends Player {
         for (String move : openPositions) {
             board.mark(Board.getMoveRowIndex(move), Board.getMoveColumnIndex(move), getMark());
 
-            int evaluation = minimax(board, depth - 1, false, opponentMark);
+            int evaluation = minimax(board, depth - 1, Integer.MIN_VALUE, Integer.MAX_VALUE, false, opponentMark);
             if (evaluation > maxEvaluation) {
                 maxEvaluation = evaluation;
                 bestMove = move;
@@ -59,11 +59,14 @@ public class AI extends Player {
      * 
      * @param board
      * @param depth
+     * @param maximizerBestScore
+     * @param minimzerBestScore
      * @param maximizingPlayer
      * @param opponentMark
      * @return the utility value of the board
      */
-    private int minimax(Board board, int depth, boolean maximizingPlayer, Mark opponentMark) {
+    private int minimax(Board board, int depth, int maximizerBestScore, int minimzerBestScore, boolean maximizingPlayer,
+            Mark opponentMark) {
         GameStatus gameStatus = TicTacToe.getGameStatus(board);
         if (depth == 0 || gameStatus.getGameOver() == true) {
             return utility(gameStatus);
@@ -77,10 +80,15 @@ public class AI extends Player {
             for (String move : openPositions) {
                 board.mark(Board.getMoveRowIndex(move), Board.getMoveColumnIndex(move), getMark());
 
-                int evaluation = minimax(board, depth - 1, false, opponentMark);
+                int evaluation = minimax(board, depth - 1, maximizerBestScore, minimzerBestScore, false, opponentMark);
                 maxEvaluation = Math.max(maxEvaluation, evaluation);
+                maximizerBestScore = Math.max(maximizerBestScore, evaluation);
 
                 board.mark(Board.getMoveRowIndex(move), Board.getMoveColumnIndex(move), null);
+
+                if (minimzerBestScore <= maximizerBestScore) {
+                    break; // The maximizer has a better sequence of moves elsewhere in the tree
+                }
             }
 
             return maxEvaluation;
@@ -90,10 +98,15 @@ public class AI extends Player {
             for (String move : openPositions) {
                 board.mark(Board.getMoveRowIndex(move), Board.getMoveColumnIndex(move), opponentMark);
 
-                int evaluation = minimax(board, depth - 1, true, opponentMark);
+                int evaluation = minimax(board, depth - 1, maximizerBestScore, minimzerBestScore, true, opponentMark);
                 minEvaluation = Math.min(minEvaluation, evaluation);
+                minimzerBestScore = Math.min(minimzerBestScore, evaluation);
 
                 board.mark(Board.getMoveRowIndex(move), Board.getMoveColumnIndex(move), null);
+
+                if (minimzerBestScore <= maximizerBestScore) {
+                    break; // The maximizer has a better sequence of moves elsewhere in the tree
+                }
             }
 
             return minEvaluation;
