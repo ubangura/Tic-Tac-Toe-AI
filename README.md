@@ -1,4 +1,4 @@
-<img src="https://github.com/ubangura/Tic-Tac-Toe-AI/blob/main/src/main/app/assets/icons/logo.svg" width="20%" align="right" />
+<img src="https://github.com/ubangura/Tic-Tac-Toe-AI/blob/main/src/main/app/assets/icons/logo.png" align="right" />
 
 # Tic Tac Toe AI 🤖
 > The minimax algorithm makes the most optimal move in any turn-based zero-sum game like tic tac toe
