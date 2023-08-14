@@ -67,7 +67,7 @@ In this project, the AI uses the minimax algorithm with alpha-beta pruning to ma
 *Note: you will need the Java Development Kit (JDK) installed on your local computer. If you need to install one, you can do so at [Oracle Java SE](https://www.oracle.com/java/technologies/javase-downloads.html).*
 <br>
 
-In the termina run
+In the terminal run
 ```bash
 git clone https://github.com/ubangura/Tic-Tac-Toe-AI.git
 ```
