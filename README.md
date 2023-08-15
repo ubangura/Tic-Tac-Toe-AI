@@ -4,7 +4,7 @@
 > A dynamic AI with a 0% loss rate against humans
 
 <p align="center"> 
-  <img src="demo.gif" alt="AI (Player O) wins against human (Player x)">
+  <img src="https://github.com/ubangura/Tic-Tac-Toe-AI/blob/main/readme%20assets/demo.gif" alt="AI (Player O) wins against human (Player x)">
 </p>
 
 <!-- TABLE OF CONTENTS -->
