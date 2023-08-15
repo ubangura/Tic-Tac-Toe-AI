@@ -1,10 +1,10 @@
 <img src="https://github.com/ubangura/Tic-Tac-Toe-AI/blob/main/src/main/app/assets/icons/logo.png" align="right" />
 
 # Tic Tac Toe AI 🤖
-> The minimax algorithm makes the most optimal move in any turn-based zero-sum game like tic tac toe
+> A dynamic AI with a 0% loss rate against humans
 
 <p align="center"> 
-  <img src="demo.gif" alt="AI (Player O) wins against human (Player x)">
+  <img src="https://github.com/ubangura/Tic-Tac-Toe-AI/blob/main/readme%20assets/demo.gif" alt="AI (Player O) wins against human (Player x)">
 </p>
 
 <!-- TABLE OF CONTENTS -->
@@ -67,19 +67,46 @@ In this project, the AI uses the minimax algorithm with alpha-beta pruning to ma
 *Note: you will need the Java Development Kit (JDK) installed on your local computer. If you need to install one, you can do so at [Oracle Java SE](https://www.oracle.com/java/technologies/javase-downloads.html).*
 <br>
 
-In the terminal run
+Run the command below in the terminal to copy the code from the repository to your local computer.
 ```bash
 git clone https://github.com/ubangura/Tic-Tac-Toe-AI.git
 ```
-to copy the code from the repository to your local computer.
 
 ---
 
 <!-- Minimax Algorithm -->
 <h2 id="minimax-algorithm"> 🎮 Minimax Algorithm</h2>
 
+> The minimax algorithm makes the most optimal move in any turn-based zero-sum game
+
+In programming a game AI, we ideally want to look ahead and evaluate all possible next moves. However, this is not always realistic due to space and time constraints. For example, in chess, there are between 10<sup>40</sup> and 10<sup>120</sup> final game states the computer would need to evaluate. So, we look ahead as far as possible. We can visualize possible next moves as a game tree where the root node is the current game state, and all its successors represent possible moves.
+
+<br>
+
+<img src="https://github.com/ubangura/Tic-Tac-Toe-AI/blob/main/readme%20assets/empty_tree.png" width="30%" align="right"/>
+
+Game Tree Features:
+- Branching factor (b) &rarr; for each node we can derive n nodes
+- Depth (d) &rarr; the longest path from the root to a leaf node
+- Leaf node &rarr; final game state for a branch
+- b<sup>d</sup> &rarr; maximum number of static evaluations
+
+In this game tree, the branching factor and depth of the tree are both 2, so the AI would perform 4 final game state evaluations.
+
+<br>
+
+<img src="https://github.com/ubangura/Tic-Tac-Toe-AI/blob/main/readme%20assets/completed_minimax_tree.png" width="50%" align="right"/>
+
+In the minimax algorithm, there are two players, the minimizing player, and the maximizing player. The minimizer wants to minimize the static evaluation (score) propagated to the root node. The maximizer wants to maximize the static evaluation.
+
+Here, the root node represents the turn of the maximizer. The next level of the tree is the minimizer's turn which leads to four leaf nodes evaluated as 2, 7, 1, and 8. With the evaluations determined, we work our way back up the tree. The minimizer will choose the min of 2 and 7 in the left subtree and the min of 1 and 8 in the right subtree. Then the maximizer will choose the max of 2 and 1. With the tree finished, the maximizer now knows to follow the branch that leads to a static evaluation of 2.
+
+*Note: The minimax algorithm assumes the minimizer will play perfectly. In other words, the minimizer will always choose the move leading to the worst outcome for the maximizer.*
+
 <!-- Alpha-beta Pruning -->
-<h3 id="alpha-beta-pruning"> &nbsp; &nbsp; ❌ Alpha-beta Pruning</h3>
+<h3 id="alpha-beta-pruning"> ❌ Alpha-beta Pruning</h3>
+
+> Alpha-beta pruning is an extension to the minimax algorithm that skips the evaluation of branches in the game tree which won't affect the outcome
 
 ---
 
