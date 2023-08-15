@@ -64,8 +64,7 @@ In this project, the AI uses the minimax algorithm with alpha-beta pruning to ma
 <!-- Getting Started Guide -->
 <h2 id="getting-started-guide"> 🛠️ Getting Started Guide</h2>
 
-*Note: you will need the Java Development Kit (JDK) installed on your local computer. If you need to install one, you can do so at [Oracle Java SE](https://www.oracle.com/java/technologies/javase-downloads.html).*
-<br>
+> Note: You will need the Java Development Kit (JDK) installed on your local computer. If you need to install one, you can do so at [Oracle Java SE](https://www.oracle.com/java/technologies/javase-downloads.html).
 
 Run the command below in the terminal to copy the code from the repository to your local computer.
 ```bash
@@ -101,12 +100,40 @@ In the minimax algorithm, there are two players, the minimizing player, and the 
 
 Here, the root node represents the turn of the maximizer. The next level of the tree is the minimizer's turn which leads to four leaf nodes evaluated as 2, 7, 1, and 8. With the evaluations determined, we work our way back up the tree. The minimizer will choose the min of 2 and 7 in the left subtree and the min of 1 and 8 in the right subtree. Then the maximizer will choose the max of 2 and 1. With the tree finished, the maximizer now knows to follow the branch that leads to a static evaluation of 2.
 
-*Note: The minimax algorithm assumes the minimizer will play perfectly. In other words, the minimizer will always choose the move leading to the worst outcome for the maximizer.*
+> Note: The minimax algorithm assumes the minimizer will play perfectly. In other words, the minimizer will always choose the move leading to the worst outcome for the maximizer.
+
+It's important to know that the branching factor in tic tac toe won't stay constant throughout the game. It will decrease by 1 with each move made. While the number of static evaluations in tic tac toe is overshot by b<sup>d</sup>, it still provides an upper bound for the algorithm. In addition, we can shortcut the minimax process using alpha-beta pruning.
 
 <!-- Alpha-beta Pruning -->
 <h3 id="alpha-beta-pruning"> ❌ Alpha-beta Pruning</h3>
 
 > Alpha-beta pruning is an extension to the minimax algorithm that skips the evaluation of branches in the game tree which won't affect the outcome
+
+Take the completed game tree above, and we will simulate alpha-beta pruning.
+
+<p align="center">
+  <img src="https://github.com/ubangura/Tic-Tac-Toe-AI/blob/main/readme%20assets/pruning_step1.png" width="50%"/>
+</p>
+
+First, we evaluate one leaf node as 2. Because the other leaf node has not yet been evaluated, the minimizer will minimize to at most a 2 in the left subtree.
+
+<p align="center">
+  <img src="https://github.com/ubangura/Tic-Tac-Toe-AI/blob/main/readme%20assets/pruning_step2.png" width="50%"/>
+</p>
+
+Next, we evaluate the other leaf node as 7, and the minimizer will choose the move leading to an evaluation of 2. At this moment, the maximizer is guaranteed a score of at least 2 because regardless of the right subtree's evaluation, the maximizer will always choose the largest of the two trees.
+
+<p align="center">
+  <img src="https://github.com/ubangura/Tic-Tac-Toe-AI/blob/main/readme%20assets/pruning_step3.png" width="50%"/>
+</p>
+
+Finally, we evaluate another leaf node as 1. Now, the minimizer will minimize to at most a 1 in the right subtree. From the perspective of the maximizing player, evaluating any other leaf nodes down this branch is irrelevant as we already know the best score from this branch, 1, is less than the better score we get from moving down the left subtree. At this point in the minimax algorithm, alpha-beta pruning tells us that we can ignore the last leaf node on the right and save computing time.
+
+<p align="center">
+  <img src="https://github.com/ubangura/Tic-Tac-Toe-AI/blob/main/readme%20assets/no_pruning.png" width="50%"/>
+</p>
+
+Alpha-beta pruning is not guaranteed to occur. If we scored the node as 3 instead of 1 we would need to evaluate the last leaf node. Now, the minimizer's best option down this branch might be 3, if we evaluate the final leaf node as, let's say 4. If we evaluate the branch as 3, then that would be the move the maximizer would want to play.
 
 ---
 
